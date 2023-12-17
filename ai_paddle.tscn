@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnfnax356vh33"]
+
+[ext_resource type="Script" path="res://ai_paddle.gd" id="1_avjwk"]
+
+[node name="ai_paddle" type="CharacterBody2D"]
+script = ExtResource("1_avjwk")
+PADDLE_SPEED = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
