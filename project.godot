@@ -11,14 +11,22 @@ config_version=5
 [application]
 
 config/name="Pong"
+run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=650
+window/size/viewport_width=102
+window/size/viewport_height=50
 window/stretch/mode="viewport"
+
+[layer_names]
+
+2d_render/layer_1="Endzone"
+2d_render/layer_2="Ball"
+2d_physics/layer_1="Endzone"
+2d_physics/layer_2="Ball"
 
 [rendering]
 
