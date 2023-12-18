@@ -1,4 +1,41 @@
-[gd_scene format=3 uid="uid://ct3020tu2w32g"]
+[gd_scene load_steps=7 format=3 uid="uid://ct3020tu2w32g"]
+
+[ext_resource type="PackedScene" uid="uid://cl4x0xyild4k5" path="res://boundary.tscn" id="1_7y6uc"]
+[ext_resource type="Script" path="res://world.gd" id="1_n00kx"]
+[ext_resource type="PackedScene" uid="uid://cnfnax356vh33" path="res://ai_paddle.tscn" id="2_gtsai"]
+[ext_resource type="PackedScene" uid="uid://bdptcvgfv13qa" path="res://player_paddle.tscn" id="3_jhuwq"]
+[ext_resource type="PackedScene" uid="uid://cgxjwxmc8m2xk" path="res://ball.tscn" id="4_nbnlu"]
+[ext_resource type="PackedScene" uid="uid://s2clyiwuypk0" path="res://endzone.tscn" id="5_vxff4"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_n00kx")
 metadata/_edit_lock_ = true
+
+[node name="Endzones" type="Node" parent="."]
+
+[node name="player_endzone" parent="Endzones" instance=ExtResource("5_vxff4")]
+position = Vector2(-10, 0)
+
+[node name="ai_endzone" parent="Endzones" instance=ExtResource("5_vxff4")]
+position = Vector2(110, 0)
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="top_boundary" parent="Boundaries" instance=ExtResource("1_7y6uc")]
+position = Vector2(50, 1)
+
+[node name="bot_boundary" parent="Boundaries" instance=ExtResource("1_7y6uc")]
+position = Vector2(50, 49)
+
+[node name="Paddles" type="Node" parent="."]
+
+[node name="ai_paddle" parent="Paddles" instance=ExtResource("2_gtsai")]
+position = Vector2(99, 25)
+
+[node name="player_paddle" parent="Paddles" instance=ExtResource("3_jhuwq")]
+position = Vector2(1, 25)
+
+[node name="Ball" type="Node" parent="."]
+
+[node name="ball" parent="Ball" instance=ExtResource("4_nbnlu")]
+position = Vector2(50, 25)
