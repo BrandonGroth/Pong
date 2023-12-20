@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var VELOCITY_PER_PADDLE_COLLISION : float = 1.05
 @export var MAX_VELOCITY : float = 400
 
+@onready var audio_stream_player = $AudioStreamPlayer
+
 @onready var num_paddle_hits : int = 0:
 	get: return num_paddle_hits
 	set(val): num_paddle_hits = val
@@ -25,7 +27,9 @@ func _process(delta):
 func collide_and_bounce(acceleration : Vector2) -> void:
 	var collision = move_and_collide(acceleration) # acceleration = velocity * delta
 	if collision:
-		#print("Ball collided with ", collision.get_collider().name)
+		
+		# Play collision hit sound
+		audio_stream_player.play()
 		
 		# Increase speed each time a paddle is hit
 		if collision.get_collider().name in paddle_names:
