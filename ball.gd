@@ -13,14 +13,10 @@ extends CharacterBody2D
 	set(val): speed = val
 	
 @onready var paddle_names : Array[String] = ["player_paddle", "ai_paddle"]
+@onready var START_POSITION : Vector2 = global_position
 
 func _ready():
-	# Create random (+/- 1, +/-1) normalized vector direction
-	var vector_x = Vector2.LEFT if randf() < .5 else Vector2.RIGHT
-	var vector_y = Vector2.UP if randf() < .5 else Vector2.DOWN
-	var init_direction = (vector_x + vector_y).normalized()
-#	apply_acceleration(init_direction, INIT_ACCELERATION)
-	velocity = speed * init_direction
+	set_random_velocity()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -29,7 +25,7 @@ func _process(delta):
 func collide_and_bounce(acceleration : Vector2) -> void:
 	var collision = move_and_collide(acceleration) # acceleration = velocity * delta
 	if collision:
-		print("Ball collided with ", collision.get_collider().name)
+		#print("Ball collided with ", collision.get_collider().name)
 		
 		# Increase speed each time a paddle is hit
 		if collision.get_collider().name in paddle_names:
@@ -45,4 +41,20 @@ func collide_and_bounce(acceleration : Vector2) -> void:
 		var motion = collision.get_remainder().bounce(collision.get_normal())
 		velocity = velocity.bounce(collision.get_normal())
 		move_and_collide(motion)
+
+func set_random_velocity() -> void:
+	# Create random (+/- 1, +/-1) normalized vector direction + random variance
+	var direction : Vector2 = Vector2.ZERO
+	direction.x += (-1 if randf() < .5 else 1) + randf_range(-0.15,0.15)
+	direction.y += (-1 if randf() < .5 else 1) + randf_range(-0.15,0.15)
+	
+	# Normalize direction + set velocity based on speed
+	direction = direction.normalized()
+	velocity = speed * direction
+	
+func reset() -> void:
+	global_position = START_POSITION
+	speed = INITIAL_SPEED
+	num_paddle_hits = 0
+	set_random_velocity()
 	

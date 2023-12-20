@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 @onready var ball = $"../../Ball/ball"
 
+@onready var START_POSITION : Vector2 = global_position
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Get direction ball is to correct for it
@@ -13,3 +15,7 @@ func _process(delta):
 	
 	velocity = Vector2(0.0, direction) * PADDLE_SPEED
 	move_and_collide(velocity*delta)
+	
+func reset() -> void:
+	global_position = START_POSITION
+	velocity = Vector2.ZERO
