@@ -26,16 +26,21 @@ func _ready():
 func _process(delta):
 	collide_and_bounce(velocity * delta)
 	
-func collide_and_bounce(acceration : Vector2) -> void:
-	var collision = move_and_collide(acceration) # acceleration = velocity * delta
+func collide_and_bounce(acceleration : Vector2) -> void:
+	var collision = move_and_collide(acceleration) # acceleration = velocity * delta
 	if collision:
 		print("Ball collided with ", collision.get_collider().name)
 		
 		# Increase speed each time a paddle is hit
 		if collision.get_collider().name in paddle_names:
+			# Add a small percentage of paddle upward/downward velocity to ball
+			var paddle_velocity = collision.get_collider().velocity
+			velocity += 0.05*paddle_velocity
+			
+			# Increase speed of ball per paddle collision
 			velocity *= VELOCITY_PER_PADDLE_COLLISION
 			velocity = velocity.limit_length(MAX_VELOCITY)
-			print("Velocity =", velocity)
+			#print("Velocity =", velocity)
 			
 		var motion = collision.get_remainder().bounce(collision.get_normal())
 		velocity = velocity.bounce(collision.get_normal())
