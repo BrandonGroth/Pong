@@ -61,4 +61,3 @@ func reset() -> void:
 	speed = INITIAL_SPEED
 	num_paddle_hits = 0
 	set_random_velocity()
-	
