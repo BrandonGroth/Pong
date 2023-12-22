@@ -2,6 +2,7 @@ extends Area2D
 
 signal score
 
-# Only body to enter endzone = ball
+# When endzone entered, emit score
+# Only ball can enter enter (paddles are outside boundary)
 func _on_body_entered(_body):
 	score.emit()
