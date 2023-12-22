@@ -14,6 +14,12 @@ The project is organized as follows:
 
 For the PauseMenu, I followed this tutorial: https://www.youtube.com/watch?v=9dlNkB-QK3c, but had to modify it because the viewport was small.
 
+Game Design Notes:
+The AI paddle is capable of moving faster than the player paddle.  This is because the player can antipate where the ball will go, whereas the AI paddle simply follows the balls position.
+The ball gets added speed every paddle hit up to a maximum velocity, and also adds a small portion of the paddle's velocity from being "pushed".
+At a certain point, the AI will no longer be able to keep up with ball if the player manages to predict the ball's path.  However, the ball is moving so quickly that the player will struggle as well.  
+Most scores occur within 10 paddle hits or less.
+
 Project Settings:
 * Custom inputs for move_up, move_down, and escape_menu (ie pause)
 * Viewport: 100x50 as the pixel art is very basic.  Stretch mode is set to viewport + expand to allow dynamically changing with the device screen size via the Control node.
